@@ -106,6 +106,7 @@ defmodule TymeslotWeb.Layouts do
       case theme_id do
         "1" -> ~p"/assets/scheduling-theme-quill.css"
         "2" -> ~p"/assets/scheduling-theme-rhythm.css"
+        "3" -> ~p"/assets/scheduling-theme-wertkurs.css"
         _other -> ~p"/assets/scheduling-theme-quill.css"
       end
 
