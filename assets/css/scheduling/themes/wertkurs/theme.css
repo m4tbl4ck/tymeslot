@@ -1,0 +1,68 @@
+/* ==========================================================================
+   wertkurs Theme (id "3") — light brand canvas, mint accents, pixel mascot.
+   Entry point: shared structural primitives first, then this theme's modules.
+   Mirrors the build shape of the Quill/Rhythm entries (Tailwind lead import,
+   LiveView loading variants, content sources) so the standalone CLI can
+   compile it on its own.
+   ========================================================================== */
+
+/* Tailwind v4: the framework import must lead the file. */
+@import "tailwindcss";
+
+/* Shared structural primitives (no colour/type) */
+@import "../../shared/reset.css";
+@import "../../shared/layout.css";
+@import "../../shared/utilities.css";
+@import "../../shared/brand-tokens.css";
+
+/* LiveView state variants — schedule nav buttons use phx-click-loading:animate-pulse */
+@custom-variant phx-click-loading {
+  .phx-click-loading& { @slot; }
+  .phx-click-loading & { @slot; }
+}
+@custom-variant phx-submit-loading {
+  .phx-submit-loading& { @slot; }
+  .phx-submit-loading & { @slot; }
+}
+@custom-variant phx-change-loading {
+  .phx-change-loading& { @slot; }
+  .phx-change-loading & { @slot; }
+}
+
+@source "../../../../js";
+@source "../../../../../lib/tymeslot_web.ex";
+@source "../../../../../lib/tymeslot_web";
+
+/* v4 compatibility: restore v3's gray-200 default border colour. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* Foundation — variables MUST come first */
+@import "./modules/variables.css";
+@import "./modules/base.css";
+@import "./modules/typography.css";
+
+/* Feature modules (order among these is not significant) */
+@import "./modules/steps.css";
+@import "./modules/overview.css";
+@import "./modules/schedule-header.css";
+@import "./modules/calendar.css";
+@import "./modules/time-slots.css";
+@import "./modules/booking-form.css";
+@import "./modules/custom-questions.css";
+@import "./modules/confirmation.css";
+@import "./modules/meeting-details.css";
+@import "./modules/components.css";
+@import "./modules/werner.css";
+@import "./modules/payment-pages.css";
+@import "./modules/language-switcher.css";
+
+/* Iframe shell rules last, so [data-embedded] overrides win. */
+@import "./modules/iframe.css";

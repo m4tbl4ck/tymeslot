@@ -196,6 +196,7 @@ defmodule TymeslotWeb.Layouts do
     case theme_id do
       "1" -> "quill-theme"
       "2" -> "rhythm-theme"
+      "3" -> "wertkurs-theme"
       _other -> "quill-theme"
     end
   end

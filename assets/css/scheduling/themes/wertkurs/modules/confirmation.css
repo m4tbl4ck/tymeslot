@@ -1,0 +1,173 @@
+/* Confirmation step — success badge, meeting ticket, answers recap, actions.
+   Werner appears here as the single mascot moment of the flow. */
+
+.confirmation-slide { display: flex; flex-direction: column; }
+
+.confirmation-container { display: flex; flex-direction: column; gap: var(--space-md); }
+
+.confirmation-header-section { display: flex; flex-direction: column; gap: var(--space-xs); }
+
+.confirmation-title-row { display: flex; align-items: center; gap: var(--space-sm); }
+
+.success-badge { flex: none; }
+
+.success-badge-inner {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--theme-selected-bg);
+  color: var(--theme-on-selected);
+  animation: wertkurs-pop 0.4s var(--ease-bounce) both;
+}
+
+.success-badge-inner--pending,
+.success-badge-inner--info { background: var(--wk-makara); color: var(--wk-ink-soft); }
+.success-badge-inner--danger { background: var(--theme-error-bg); color: var(--theme-danger); }
+.success-badge-inner--success { background: var(--theme-selected-bg); color: var(--theme-on-selected); }
+.success-badge--transparent .success-badge-inner { box-shadow: none; }
+
+.success-icon { width: var(--icon-md); height: var(--icon-md); }
+
+@keyframes wertkurs-pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Ticket */
+.meeting-ticket {
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  background: var(--theme-surface);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--wk-ink);
+  color: var(--wk-white);
+}
+
+.ticket-label {
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+}
+
+.ticket-badge {
+  font-family: var(--theme-font-family-mono);
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--theme-selected-bg);
+  color: var(--theme-on-selected);
+}
+
+.ticket-body {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+}
+
+.ticket-row,
+.meeting-detail-row { display: flex; align-items: center; gap: var(--space-sm); }
+
+.ticket-icon,
+.meeting-detail-icon-wrapper {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--wk-mint-tint);
+  color: var(--theme-on-mint);
+}
+
+.ticket-info,
+.meeting-detail-info { display: flex; flex-direction: column; min-width: 0; }
+
+.ticket-value,
+.meeting-detail-value {
+  font-size: var(--theme-font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--theme-text);
+  overflow-wrap: break-word;
+}
+
+.ticket-sublabel,
+.meeting-detail-label {
+  font-size: var(--theme-font-size-2xs);
+  color: var(--theme-text-secondary);
+}
+
+.ticket-footer {
+  padding: var(--space-xs) var(--space-md);
+  border-top: 1px dashed var(--theme-border);
+  background: var(--theme-surface-subtle);
+}
+
+.email-confirmation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--theme-font-size-xs);
+  color: var(--theme-text-secondary);
+}
+
+.email-confirmation strong { color: var(--theme-text); }
+
+.email-icon { width: var(--icon-sm); height: var(--icon-sm); flex: none; color: var(--theme-text-muted); }
+.email-icon--success { color: var(--theme-success); }
+.ticket-footer-message { margin: 0; }
+
+/* Answers recap */
+.custom-answers-section { display: flex; flex-direction: column; gap: var(--space-xs); }
+
+.custom-answers-list { display: grid; gap: var(--space-2xs); margin: 0; }
+
+.custom-answer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-xs) 0;
+  border-bottom: var(--border-width-thin) solid var(--theme-hairline);
+}
+
+.custom-answer-label {
+  font-size: var(--theme-font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-eyebrow);
+  color: var(--theme-text-muted);
+}
+
+.custom-answer-value { font-size: var(--theme-font-size-sm); color: var(--theme-text); margin: 0; }
+
+/* Actions */
+.confirmation-actions-section,
+.confirmation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.confirmation-actions-section { flex-direction: column; align-items: stretch; }
+.confirmation-actions.centered { justify-content: center; }
+
+.calendar-download-icon { width: var(--icon-sm); height: var(--icon-sm); }
+
+@container scheduling (min-width: 520px) {
+  .ticket-body { grid-template-columns: 1fr 1fr; }
+  .ticket-row:first-child { grid-column: 1 / -1; }
+}

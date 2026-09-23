@@ -1,0 +1,84 @@
+/* Step rail — a quiet 4/5-step progress row at the top of the card.
+   Numbered steps are the brand's relief device ("Schritt 1 / 2 / 3"). */
+
+.step-rail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  width: 100%;
+  margin: 0 0 var(--space-xs);
+  padding: 0;
+  list-style: none;
+}
+
+/* Items grow so the connecting lines stretch the rail across the full card
+   width — airier, and the row reads as one progress bar. The last item has no
+   line, so it stays at its content width and the rail ends flush. */
+.step-rail_item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.step-rail_item:last-child { flex: 0 0 auto; }
+
+.step-rail_dot {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  background: var(--theme-surface-subtle);
+  color: var(--theme-text-muted);
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.step-rail_item.is-done .step-rail_dot {
+  background: var(--wk-mint-lightest);
+  border-color: transparent;
+  color: var(--theme-on-mint);
+}
+
+.step-rail_item.is-current .step-rail_dot {
+  background: var(--theme-selected-bg);
+  border-color: transparent;
+  color: var(--theme-on-selected);
+}
+
+.step-rail_label {
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--theme-text-muted);
+  white-space: nowrap;
+}
+
+.step-rail_item.is-current .step-rail_label { color: var(--theme-text); }
+
+.step-rail_line {
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 8px;
+  background: var(--theme-hairline);
+}
+
+/* Narrow cards keep the numbers, drop the words. */
+@container scheduling (max-width: 519px) {
+  .step-rail_label { display: none; }
+  /* Narrow cards (embeds, phones): a compact centred row instead of stretched
+     lines between bare numbers. */
+  .step-rail_item { flex: 0 0 auto; }
+  .step-rail_line { min-width: 12px; }
+}
+
+@media (max-height: 500px) {
+  .step-rail { display: none; }
+}

@@ -1,0 +1,225 @@
+/* wertkurs theme tokens — brand values from the wertkurs design system
+   (colors_and_type.css) mapped onto Tymeslot's --theme-* contract.
+
+   Responsive height ladder (convention — @media feature values can't use var()):
+     600px  short    — compact card padding, tighter week strip
+     500px  shorter  — hide meeting-type descriptions
+     400px  minimal  — strip remaining chrome
+     350px  bare     — last-resort trims
+
+   FONTS: the guide asks themes to avoid external font imports. wertkurs type is
+   licensed Adobe Fonts (kit pdd3dqx), so the kit is imported here by decision of
+   the brand owner. To go fully self-hosted, delete the @import and drop
+   new-hero woff2 files into priv/static/fonts/wertkurs/ with matching
+   @font-face rules — nothing else in the theme changes. */
+@import url("https://use.typekit.net/pdd3dqx.css");
+
+:root {
+  /* ---------- Brand primitives ---------- */
+  --wk-mint: #8fd9b6;            /* Yellow Metal — signature accent */
+  --wk-mint-lighter: #b0dac6;
+  --wk-mint-lightest: #dae6e0;
+  --wk-mint-tint: #f2faf6;       /* selected-row wash on white */
+  --wk-forest: #1d402f;          /* Yellow Metal Darkest — ink on mint */
+  --wk-ming: #d962b7;
+  --wk-lotus: #f25835;
+  --wk-makara: #f2e96d;
+  --wk-purple: #9d62d9;
+  --wk-ink: #020202;             /* Neutral Darkest — dark surface + filled buttons */
+  --wk-ink-soft: #1b1b1b;
+  --wk-grey: #808080;
+  --wk-grey-dark: #4d4d4d;
+  --wk-grey-line: #d9d9d9;
+  --wk-paper: #f2f2f2;           /* Neutral Lightest — page canvas */
+  --wk-white: #ffffff;
+
+  --gradient-brand: linear-gradient(90deg, #d962b7 0%, #dd60a1 20%, #e75c6a 63%, #f25835 100%);
+  --gradient-spectrum: linear-gradient(90deg, #9d62d9, #d962b7, #f25835, #f2e96d, #8fd9b6);
+
+  /* ---------- Surfaces ---------- */
+  --theme-background-color: var(--wk-paper);
+  --theme-background: var(--wk-paper);
+  --theme-background-image: none;
+  --theme-surface: var(--wk-white);
+  --theme-surface-subtle: var(--wk-paper);
+  --theme-surface-sunken: #fafafa;
+
+  /* ---------- Foreground ---------- */
+  --theme-text: var(--wk-ink-soft);
+  --theme-text-secondary: var(--wk-grey-dark);
+  --theme-text-muted: var(--wk-grey);
+  --theme-on-mint: var(--wk-forest);
+
+  /* ---------- Accent + filled controls ----------
+     Mint is the brand's primary accent AND the CTA fill: filled buttons take
+     the mint field, which reads as the invitation to click. Mint cannot carry
+     white label text (1.9:1), so the ink on mint is always forest green
+     #1d402f (7.4:1) — the same pairing the brand uses for its mint button.
+     Because mint now belongs to the *action*, a committed choice inside a
+     step (selected day, selected slot) takes the deep-black "picked" pair
+     instead, so the CTA stays the only mint surface in view.
+     ThemeCustomizations.ContrastTokens overrides the -solid pair when the
+     organiser customises colours; the values here are the brand defaults. */
+  --theme-primary: var(--wk-mint);
+  --theme-primary-hover: #7ccfa6;
+  --theme-primary-solid: var(--wk-mint);
+  --theme-primary-solid-hover: #7ccfa6;
+  --theme-on-primary: var(--wk-forest);
+
+  /* Committed choice inside a step — deep black, white ink (17:1) */
+  --theme-picked-bg: var(--wk-ink);
+  --theme-picked-bg-hover: #2b2b2b;
+  --theme-on-picked: var(--wk-white);
+  --theme-accent: var(--wk-mint);
+  --theme-accent-solid: var(--wk-mint);
+  --theme-on-accent: var(--wk-forest);
+  --theme-selected-bg: var(--wk-mint);
+  --theme-selected-bg-hover: #7ccfa6;
+  --theme-on-selected: var(--wk-forest);
+  --theme-secondary: var(--wk-ming);
+
+  /* ---------- Status ---------- */
+  --theme-success: #2f8f63;
+  --theme-warning: #8a6d00;
+  --theme-warning-bg: rgba(242, 233, 109, 0.35);
+  --theme-info: var(--wk-purple);
+  --theme-danger: #c2321a;          /* darkened Lotus — 4.8:1 as error TEXT on white */
+  --theme-danger-dark: #a32812;
+  /* Destructive FILL is the brand's Lotus with near-black ink (6.4:1) — same
+     logic as the mint CTA: accent field, dark ink. The darkened Lotus above
+     stays reserved for error text, where it needs 4.5:1 on white. */
+  --theme-danger-solid: var(--wk-lotus);
+  --theme-danger-solid-hover: #e04a27;
+  --theme-on-danger: var(--wk-ink);
+  --theme-error: var(--theme-danger);
+  --theme-error-light: var(--theme-danger);
+  --theme-error-bg: rgba(242, 88, 53, 0.08);
+  --theme-error-border: rgba(194, 50, 26, 0.45);
+
+  /* ---------- Lines ---------- */
+  --theme-border: var(--wk-grey-line);
+  --theme-hairline: rgba(2, 2, 2, 0.08);
+  --border-subtle: rgba(2, 2, 2, 0.06);
+  --border-light: rgba(2, 2, 2, 0.08);
+  --border-medium: rgba(2, 2, 2, 0.14);
+  --border-strong: rgba(2, 2, 2, 0.24);
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+
+  /* ---------- Typography ---------- */
+  --theme-font-family: "new-hero", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --theme-font-family-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --theme-font-size-3xs: clamp(0.688rem, 1cqi, 0.75rem);
+  --theme-font-size-2xs: clamp(0.75rem, 1.2cqi, 0.813rem);
+  --theme-font-size-xs: clamp(0.813rem, 1.4cqi, 0.875rem);
+  --theme-font-size-sm: clamp(0.875rem, 1.6cqi, 0.938rem);
+  --theme-font-size-base: clamp(0.938rem, 1.8cqi, 1rem);
+  --theme-font-size-md: clamp(1rem, 2cqi, 1.125rem);
+  --theme-font-size-lg: clamp(1.125rem, 2.6cqi, 1.313rem);
+  --theme-font-size-xl: clamp(1.313rem, 3.4cqi, 1.625rem);
+  --theme-font-size-2xl: clamp(1.5rem, 4.4cqi, 2.125rem);
+  --theme-font-size-3xl: clamp(1.75rem, 5.4cqi, 2.5rem);
+
+  --theme-line-height-tight: 1.05;
+  --theme-line-height-snug: 1.15;
+  --theme-line-height-normal: 1.35;
+  --theme-line-height-relaxed: 1.5;
+  --theme-line-height-loose: 1.6;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  /* Headlines are UPPERCASE with near-zero tracking (brand signature) */
+  --heading-transform: uppercase;
+  --heading-tracking: -0.005em;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.06em;
+  --letter-spacing-eyebrow: 0.16em;
+
+  /* ---------- Radii — 8px is the standard, buttons are never pills ---------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 999px;   /* avatars only */
+
+  /* ---------- Spacing (4px base, fluid) ---------- */
+  --space-hairline: 2px;
+  --space-3xs: 4px;
+  --space-2xs: 6px;
+  --space-xs: clamp(8px, 1.2cqi, 12px);
+  --space-sm: clamp(12px, 1.8cqi, 16px);
+  --space-md: clamp(16px, 2.4cqi, 20px);
+  --space-lg: clamp(20px, 3cqi, 28px);
+  --space-xl: clamp(24px, 3.6cqi, 32px);
+  --space-2xl: clamp(32px, 4.5cqi, 40px);
+
+  /* ---------- Motion — friendly and quick ---------- */
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.2s ease-out;
+  --transition-smooth: 0.25s ease-out;
+  --transition-slow: 0.35s ease-out;
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- Elevation — soft diffuse + hard sticker ---------- */
+  --shadow-sm: 0 1px 2px rgba(2, 2, 2, 0.06), 0 1px 3px rgba(2, 2, 2, 0.05);
+  --shadow-md: 0 4px 16px rgba(2, 2, 2, 0.08), 0 1px 4px rgba(2, 2, 2, 0.05);
+  --shadow-lg: 0 18px 48px rgba(2, 2, 2, 0.12), 0 4px 12px rgba(2, 2, 2, 0.06);
+  --shadow-xl: 0 24px 64px rgba(2, 2, 2, 0.14), 0 6px 16px rgba(2, 2, 2, 0.07);
+  --shadow-mint: 0 10px 28px rgba(143, 217, 182, 0.45);
+  --shadow-ink: 0 8px 20px rgba(2, 2, 2, 0.18);
+  --shadow-sticker: 4px 4px 0 var(--wk-ink-soft);
+
+  /* ---------- Component sizing ---------- */
+  --avatar-size-sm: clamp(32px, 4cqi, 36px);
+  --avatar-size-md: clamp(40px, 5cqi, 44px);
+  --avatar-size-lg: clamp(48px, 7cqi, 56px);
+  --avatar-size-xl: clamp(56px, 8cqi, 68px);
+  --min-touch-target: 48px;
+
+  --container-xs: 280px;
+  --container-sm: 360px;
+  --container-md: 520px;
+  --container-lg: 640px;
+  --container-xl: 760px;
+  --card-max-width: 680px;
+
+  --dropdown-width: var(--container-xs);
+  --dropdown-max-height: clamp(200px, 50vh, 420px);
+  --z-dropdown: 50;
+
+  --calendar-gap: clamp(4px, 0.8cqi, 8px);
+  --calendar-day-min-height: 64px;
+
+  --time-slot-min-width: 92px;
+  --time-slot-min-height: 44px;
+  --time-slots-max-height: clamp(260px, 48vh, 420px);
+
+  --icon-xs: 16px;
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+  --icon-xl: 40px;
+  --flag-height: 14px;
+
+  --scrollbar-width: 8px;
+  --scrollbar-track: rgba(2, 2, 2, 0.04);
+  --scrollbar-thumb: rgba(2, 2, 2, 0.16);
+  --scrollbar-thumb-hover: rgba(2, 2, 2, 0.26);
+
+  --button-padding-y: 14px;
+  --button-padding-x: 26px;
+  --button-padding-y-sm: 12px;
+  --button-padding-x-sm: 20px;
+
+  /* Mascot + texture assets (served from priv/static) */
+  --wk-texture-grain: url("/images/themes/wertkurs/grain.png");
+  --wk-werner-shrug: url("/images/themes/wertkurs/werner-shrug.png");
+}

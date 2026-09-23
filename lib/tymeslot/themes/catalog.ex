@@ -55,6 +55,21 @@ defmodule Tymeslot.Themes.Catalog do
         step_count: 4
       },
       status: :active
+    },
+    wertkurs: %{
+      id: "3",
+      key: :wertkurs,
+      name: "wertkurs",
+      description: "Bright brand theme with a week-at-a-glance schedule step",
+      features: %{
+        supports_video_background: false,
+        supports_image_background: false,
+        supports_gradient_background: false,
+        supports_custom_colors: true,
+        flow_type: :multi_step,
+        step_count: 4
+      },
+      status: :active
     }
   }
 

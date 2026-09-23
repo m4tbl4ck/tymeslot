@@ -1,0 +1,251 @@
+/* Root layout, brand canvas, the booking card, and the step frame.
+   Natural document flow — content scrolls the page, the canvas fills via
+   min-height. The card (.scheduling-box) is the container-query root. */
+
+html.wertkurs-theme {
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  background: var(--theme-background-color);
+}
+
+body.wertkurs-theme {
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  font-family: var(--theme-font-family);
+  color: var(--theme-text);
+  background: var(--theme-background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Theme shell */
+.wertkurs-theme-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--theme-background-color);
+}
+
+/* The brand canvas: flat light field + grain. Grain is dark specks on
+   transparent, so it only ever reads on these light fills — never move this
+   layer onto a saturated or dark surface. */
+.wertkurs-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--theme-background-color);
+}
+
+.wertkurs-canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--wk-texture-grain);
+  background-repeat: repeat;
+  background-size: 280px 280px;
+  opacity: 0.35;
+}
+
+/* Mint horizon — a single quiet brand field anchoring the bottom of the page.
+   One accent field per surface; the rest stays paper white. */
+.wertkurs-canvas::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  background: linear-gradient(180deg, rgba(143, 217, 182, 0) 0%, rgba(143, 217, 182, 0.28) 100%);
+}
+
+.wertkurs-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wertkurs-stage .content-area {
+  display: flex;
+  align-items: flex-start;
+  align-items: safe center;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+  min-height: 0;
+  /* Scroll when the card outgrows the row; `safe center` only top-aligns. */
+  overflow-y: auto;
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+   The booking card — white surface, 8px corners, soft diffuse shadow.
+   Container query root for every step component.
+   --------------------------------------------------------------------------- */
+.scheduling-box {
+  container-type: inline-size;
+  container-name: scheduling;
+  width: min(var(--card-max-width), 100%);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Spectrum hairline on the card's top edge — the one decorative brand mark
+   in the booking flow. */
+.scheduling-box::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--gradient-spectrum);
+  z-index: 2;
+}
+
+.slide-container {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  min-height: 0;
+}
+
+.slide {
+  grid-area: 1 / 1;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: var(--space-md);
+}
+
+.slide-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-lg);
+  flex-shrink: 0;
+}
+
+.slide-actions.horizontal {
+  gap: var(--space-sm);
+}
+
+.slide-actions.horizontal button {
+  flex: 1;
+}
+
+/* Schedule step needs visible overflow so the timezone dropdown can paint
+   over the week strip below it. */
+.schedule-slide {
+  overflow: visible;
+}
+
+.schedule-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout helpers used by the step markup
+   --------------------------------------------------------------------------- */
+.stack { display: flex; flex-direction: column; }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; }
+.cluster-xs { gap: var(--space-xs); }
+.center-content { display: flex; align-items: center; justify-content: center; }
+.flex-1 { flex: 1 1 auto; }
+.shrink-0,
+.flex-shrink-0 { flex-shrink: 0; }
+.w-full { width: 100%; }
+
+.scroll-y {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.scroll-y::-webkit-scrollbar { width: var(--scrollbar-width); }
+.scroll-y::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: var(--radius-sm); }
+.scroll-y::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: var(--radius-sm); }
+.scroll-y::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+
+/* ---------------------------------------------------------------------------
+   Card sizing — the card IS the container root, so its own width stays
+   viewport-driven (@media); everything inside uses @container scheduling.
+   --------------------------------------------------------------------------- */
+@media (max-width: 719px) {
+  .wertkurs-stage .content-area { padding: var(--space-md) var(--space-sm); }
+}
+
+@media (max-width: 479px) {
+  .wertkurs-stage .content-area { padding: 0; }
+
+  .scheduling-box {
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+  }
+}
+
+/* Interior compaction */
+@container scheduling (max-width: 479px) {
+  .slide { padding: var(--space-md) var(--space-sm); }
+  .slide-content { gap: var(--space-sm); }
+  .slide-actions { padding-top: var(--space-md); }
+}
+
+/* Short viewports */
+@media (max-height: 600px) {
+  .wertkurs-stage .content-area { padding: var(--space-sm); }
+  .slide { padding: var(--space-md); }
+  .slide-actions { padding-top: var(--space-sm); }
+}
+
+@media (max-height: 400px) {
+  .slide { padding: var(--space-sm); }
+  .slide-content { gap: var(--space-xs); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide { transition: none; }
+}
+
+@media print {
+  .wertkurs-canvas { display: none; }
+  .scheduling-box { box-shadow: none; border: 1px solid #ccc; }
+  button { display: none; }
+}

@@ -1,0 +1,78 @@
+/* Werner — the pixel flamingo. Deliberately rationed: he appears in the two
+   moments where the flow has nothing else to say (empty states) and once as a
+   small confirmation cameo. Crisp pixels, never scaled-down-smooth. */
+
+.no-slots,
+.overview-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  color: var(--theme-text-secondary);
+  font-size: var(--theme-font-size-sm);
+}
+
+.no-slots p,
+.overview-empty-state p { margin: 0; }
+
+.no-slots::before,
+.overview-empty-state::before {
+  content: "";
+  width: 88px;
+  height: 88px;
+  background-image: var(--wk-werner-shrug);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  image-rendering: pixelated;
+  opacity: 0.95;
+}
+
+.overview-empty-title {
+  font-size: var(--theme-font-size-md);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--heading-tracking);
+  color: var(--theme-text);
+}
+
+.overview-empty-subtitle { font-size: var(--theme-font-size-sm); }
+
+/* Confirmation cameo — Werner peeks in at the card's bottom-right corner. */
+.wertkurs-werner-cameo {
+  position: absolute;
+  right: var(--space-sm);
+  bottom: 0;
+  width: 104px;
+  height: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+  opacity: 0.95;
+  animation: wertkurs-werner-in 0.45s var(--ease-bounce) both;
+}
+
+@keyframes wertkurs-werner-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 0.95; }
+}
+
+/* He is a garnish, not a layout element: below 480px of card and on short
+   viewports he steps out of the way entirely. */
+@container scheduling (max-width: 479px) {
+  .wertkurs-werner-cameo { display: none; }
+  .no-slots::before,
+  .overview-empty-state::before { width: 64px; height: 64px; }
+}
+
+@media (max-height: 600px) {
+  .wertkurs-werner-cameo { display: none; }
+  .no-slots::before,
+  .overview-empty-state::before { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wertkurs-werner-cameo { animation: none; }
+}

@@ -1,0 +1,83 @@
+/* iframe.css — shell rules for embedded mode.
+
+   iframe_embed.js sets [data-embedded] on <html> and posts the measured
+   content height to the parent on a 50ms loop, which grows AND shrinks the
+   iframe element. So the body must flow to its natural height here: no
+   `height: 100%` chains, no 100vh fills, no inner scroll containers. */
+
+html.wertkurs-theme[data-embedded] {
+  min-height: auto;
+  margin: 0;
+}
+
+html.wertkurs-theme[data-embedded] body.wertkurs-theme {
+  margin: 0;
+  display: flow-root;
+  height: max-content;
+  min-height: 0;
+}
+
+/* Canvas + stage size to content instead of the iframe viewport. */
+html.wertkurs-theme[data-embedded] .wertkurs-stage {
+  min-height: auto;
+  grid-template-rows: auto;
+  padding: 0;
+}
+
+html.wertkurs-theme[data-embedded] .wertkurs-stage .content-area {
+  padding: var(--space-sm);
+  min-height: 0;
+  overflow: visible;
+}
+
+html.wertkurs-theme[data-embedded] .wertkurs-canvas { position: absolute; }
+
+/* The mint horizon is page furniture — it reads as a stray band in an embed. */
+html.wertkurs-theme[data-embedded] .wertkurs-canvas::before { display: none; }
+
+/* The spectrum hairline is the page's brand mark. Inside someone else's page
+   it becomes a stray coloured line at the top of the embed — off, for maximum
+   flexibility in host layouts. */
+html.wertkurs-theme[data-embedded] .scheduling-box::before { display: none; }
+
+html.wertkurs-theme[data-embedded] .slide-container,
+html.wertkurs-theme[data-embedded] .slide-content,
+html.wertkurs-theme[data-embedded] .schedule-grid { flex: initial; }
+
+/* Card fills the iframe: no radius, no side borders, no shadow. */
+html.wertkurs-theme[data-embedded] .scheduling-box {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+}
+
+/* Single page-level scroll — slots flow to natural height. */
+html.wertkurs-theme[data-embedded] .time-slots-grid {
+  max-height: none;
+  overflow-y: visible;
+  height: auto;
+}
+
+/* Hide the branding footer in embedded mode. */
+html.wertkurs-theme[data-embedded] .footer-gradient { display: none; }
+
+html.wertkurs-theme[data-embedded] .language-switcher-container {
+  top: var(--space-2xs);
+  right: var(--space-2xs);
+}
+
+/* Column embeds (WordPress columns and similar narrow containers): drop the
+   centred max-width cap so the booker uses the full container width.
+   Specificity (0,2,1) beats the default .scheduling-box rules in base.css. */
+html.wertkurs-theme[data-embed-layout="column"] .scheduling-box {
+  max-width: 100%;
+  width: 100%;
+}
+
+html.wertkurs-theme[data-embed-layout="column"] .wertkurs-stage .content-area {
+  padding-left: 0;
+  padding-right: 0;
+}

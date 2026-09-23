@@ -1,0 +1,69 @@
+/* Language switcher — sits OUTSIDE the scheduling card, so it must use
+   viewport @media queries (@container only matches descendants). */
+
+.language-switcher-container {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: var(--z-dropdown);
+}
+
+.language-switcher-container.hidden { display: none; }
+.language-switcher-container.visible { display: block; }
+
+.language-switcher-container .language-trigger,
+.language-switcher-container button[aria-haspopup] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--theme-surface);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  color: var(--theme-text);
+  font-size: var(--theme-font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+.language-switcher-container .language-trigger:hover,
+.language-switcher-container button[aria-haspopup]:hover {
+  border-color: var(--theme-primary);
+  background: var(--wk-mint-tint);
+}
+
+.language-switcher-container [role="menu"],
+.language-switcher-container .language-dropdown {
+  margin-top: var(--space-3xs);
+  min-width: 180px;
+  background: var(--theme-surface);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.language-switcher-container [role="menuitem"],
+.language-switcher-container .language-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+  padding: var(--space-xs);
+  background: none;
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--border-subtle);
+  color: var(--theme-text);
+  font-size: var(--theme-font-size-xs);
+  text-align: left;
+  cursor: pointer;
+}
+
+.language-switcher-container [role="menuitem"]:hover,
+.language-switcher-container .language-option:hover { background: var(--wk-mint-tint); }
+
+@media (max-width: 479px) {
+  .language-switcher-container { top: var(--space-2xs); right: var(--space-2xs); }
+}

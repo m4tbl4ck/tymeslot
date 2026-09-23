@@ -1,0 +1,114 @@
+/* Time slots — fluid auto-fit grid, grouped by period (or by hour when the
+   day is dense). Selected slot is the "picked" state — deep black, white ink —
+   so mint stays reserved for the CTA. */
+
+/* A hairline and real breathing room separate "pick a day" from "pick a time",
+   so the two decisions read as two blocks instead of one dense field. */
+.time-slots-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: var(--border-width-thin) solid var(--theme-hairline);
+  min-height: 0;
+}
+
+.time-slots-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-height: var(--time-slots-max-height);
+}
+
+.time-period-section { display: flex; flex-direction: column; }
+
+/* Period label as a labelled rule: the line carries the eye across the group
+   and makes Vormittag / Nachmittag / Abend legible at a glance. */
+.time-period-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-xs);
+}
+
+.time-period-header::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--theme-hairline);
+}
+
+.time-period-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--time-slot-min-width), 1fr));
+  gap: var(--space-xs);
+}
+
+.time-period-slots--minutes {
+  margin-top: var(--space-2xs);
+  padding: var(--space-2xs);
+  border-radius: var(--radius-md);
+  background: var(--theme-surface-subtle);
+}
+
+.time-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: var(--time-slot-min-height);
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  background: var(--theme-surface);
+  color: var(--theme-text);
+  font-family: var(--theme-font-family-mono);
+  font-size: var(--theme-font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background var(--transition-normal), border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.time-slot:hover:not(:disabled) {
+  border-color: var(--theme-primary);
+  background: var(--wk-mint-tint);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.time-slot:active:not(:disabled) { transform: scale(0.97); }
+
+.time-slot.selected {
+  background: var(--theme-picked-bg);
+  border-color: var(--theme-picked-bg);
+  color: var(--theme-on-picked);
+  box-shadow: var(--shadow-ink);
+}
+
+.time-slot.selected:hover:not(:disabled) {
+  background: var(--theme-picked-bg-hover);
+  border-color: var(--theme-picked-bg-hover);
+}
+
+.time-slot:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Two-tier hour picker */
+.time-slot--hour { justify-content: space-between; }
+
+.time-slot--hour.expanded {
+  border-color: var(--theme-primary);
+  background: var(--wk-mint-tint);
+}
+
+.slot-hour-label { font-weight: var(--font-weight-bold); }
+
+.slot-hour-count {
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-3xs);
+  color: var(--theme-text-muted);
+  opacity: 1;
+}
+
+.time-slot--hour.selected .slot-hour-count { color: var(--theme-on-picked); }
+.time-slot--hour.expanded .slot-hour-count { color: var(--theme-on-selected); }

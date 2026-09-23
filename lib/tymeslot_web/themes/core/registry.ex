@@ -36,6 +36,10 @@ defmodule TymeslotWeb.Themes.Core.Registry do
     "2" => %{
       module: TymeslotWeb.Themes.Rhythm.Theme,
       css_file: "/assets/scheduling-theme-rhythm.css"
+    },
+    "3" => %{
+      module: TymeslotWeb.Themes.Wertkurs.Theme,
+      css_file: "/assets/scheduling-theme-wertkurs.css"
     }
   }
 

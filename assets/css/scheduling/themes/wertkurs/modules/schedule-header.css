@@ -1,0 +1,185 @@
+/* Schedule + booking header: compact organiser row and timezone selector. */
+
+.schedule-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--border-width-thin) solid var(--theme-hairline);
+}
+
+.organizer-profile-small {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.avatar-image-small {
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
+  flex: none;
+  object-fit: cover;
+  border-radius: var(--radius-full);
+  background: var(--wk-mint-lightest);
+}
+
+.organizer-info-small { display: flex; flex-direction: column; min-width: 0; }
+
+.organizer-name {
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--theme-text-muted);
+}
+
+.organizer-name-full {
+  font-size: var(--theme-font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--theme-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meeting-duration {
+  font-family: var(--theme-font-family-mono);
+  font-size: var(--theme-font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--theme-text-secondary);
+}
+
+/* Timezone selector */
+/* The trigger is chrome from the same family as the week strip and the slots:
+   white surface, grey hairline, 8px corners, 40px tall. */
+.timezone-selector-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-3xs);
+  min-width: 0;
+}
+
+.timezone-label {
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--theme-text-muted);
+}
+
+.timezone-dropdown-wrapper { position: relative; }
+
+.timezone-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  min-height: 40px;
+  max-width: 260px;
+  padding: 0 var(--space-xs);
+  background: var(--theme-surface);
+  border: var(--border-width-thin) solid var(--theme-border);
+  border-radius: var(--radius-md);
+  color: var(--theme-text);
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-xs);
+  cursor: pointer;
+  transition: border-color var(--transition-normal), background var(--transition-normal);
+}
+
+.timezone-trigger:hover { border-color: var(--theme-primary); background: var(--wk-mint-tint); }
+
+.timezone-display { display: flex; align-items: center; gap: var(--space-2xs); min-width: 0; }
+
+.timezone-flag { height: var(--flag-height); width: auto; border-radius: 2px; flex: none; }
+
+.timezone-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--font-weight-semibold);
+}
+
+.timezone-arrow {
+  display: grid;
+  place-items: center;
+  width: var(--icon-xs);
+  height: var(--icon-xs);
+  flex: none;
+  color: var(--theme-text-muted);
+}
+
+.timezone-arrow svg { width: var(--icon-xs); height: var(--icon-xs); }
+
+.timezone-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-3xs));
+  z-index: var(--z-dropdown);
+  width: var(--dropdown-width);
+  max-width: min(var(--dropdown-width), 80cqi);
+  background: var(--theme-surface);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.timezone-search-wrapper { padding: var(--space-xs); border-bottom: var(--border-width-thin) solid var(--theme-hairline); }
+
+.timezone-search {
+  width: 100%;
+  padding: var(--space-2xs) var(--space-xs);
+  border: var(--border-width-thin) solid var(--theme-border);
+  border-radius: var(--radius-md);
+  font-size: var(--theme-font-size-xs);
+  color: var(--theme-text);
+  background: var(--theme-surface);
+}
+
+.timezone-search:focus { outline: 2px solid var(--theme-primary); outline-offset: 1px; border-color: var(--theme-primary); }
+
+.timezone-options { max-height: var(--dropdown-max-height); }
+
+.timezone-option {
+  display: block;
+  width: 100%;
+  padding: var(--space-xs);
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--border-subtle);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.timezone-option:hover { background: var(--wk-mint-tint); }
+
+.timezone-option-content { display: flex; align-items: center; gap: var(--space-xs); }
+.timezone-option-flag { height: var(--flag-height); width: auto; flex: none; border-radius: 2px; }
+.timezone-option-text { display: flex; flex-direction: column; min-width: 0; }
+
+.timezone-option-label {
+  font-size: var(--theme-font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--theme-text);
+}
+
+.timezone-option-offset {
+  font-family: var(--theme-font-family-mono);
+  font-size: var(--theme-font-size-3xs);
+  color: var(--theme-text-muted);
+}
+
+@container scheduling (max-width: 479px) {
+  .schedule-header { align-items: flex-start; }
+  .timezone-selector-container { align-items: stretch; width: 100%; }
+  .timezone-trigger { max-width: none; }
+  .timezone-dropdown { left: 0; right: auto; width: min(var(--dropdown-width), 92cqi); }
+}

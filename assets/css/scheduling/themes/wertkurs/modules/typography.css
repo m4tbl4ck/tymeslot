@@ -1,0 +1,95 @@
+/* Text styles. Headlines are UPPERCASE, heavy and short (brand signature);
+   copy underneath stays sentence case with generous line-height. */
+
+.slide-title,
+.confirmation-headline,
+.time-slots-section-heading,
+.calendar-month-year,
+.custom-answers-heading,
+.payment-page-heading {
+  font-family: var(--theme-font-family);
+  text-transform: var(--heading-transform);
+  letter-spacing: var(--heading-tracking);
+  color: var(--theme-text);
+  text-wrap: pretty;
+}
+
+.slide-title {
+  font-size: var(--theme-font-size-2xl);
+  font-weight: var(--font-weight-black);
+  line-height: var(--theme-line-height-tight);
+  margin: 0;
+}
+
+.confirmation-headline {
+  font-size: var(--theme-font-size-2xl);
+  font-weight: var(--font-weight-black);
+  line-height: var(--theme-line-height-tight);
+  margin: 0;
+}
+
+.time-slots-section-heading,
+.custom-answers-heading {
+  font-size: var(--theme-font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  color: var(--theme-text-secondary);
+  margin: 0;
+}
+
+.calendar-month-year {
+  font-size: var(--theme-font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.time-period-header {
+  font-family: var(--theme-font-family);
+  font-size: var(--theme-font-size-3xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--theme-text-muted);
+  margin: 0 0 var(--space-xs);
+}
+
+/* Body copy */
+.organizer-greeting,
+.organizer-instruction,
+.confirmation-message,
+.duration-description,
+.help-text,
+.payment-page-body {
+  font-size: var(--theme-font-size-base);
+  line-height: var(--theme-line-height-loose);
+  color: var(--theme-text-secondary);
+  margin: 0;
+}
+
+.organizer-greeting {
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-text);
+}
+
+.help-text {
+  font-size: var(--theme-font-size-xs);
+  color: var(--theme-text-muted);
+}
+
+/* Screen-reader only (the theme bundle ships without app.css utilities) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-height: 500px) {
+  .slide-title,
+  .confirmation-headline { font-size: var(--theme-font-size-lg); }
+}

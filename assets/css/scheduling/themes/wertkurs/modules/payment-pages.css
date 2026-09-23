@@ -1,0 +1,71 @@
+/* Paid-booking return pages (processing / cancelled). Standalone views —
+   they render the wrapper class without the scheduling card. */
+
+.payment-page-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-xl) var(--space-md);
+  background: var(--theme-background-color);
+}
+
+.payment-page-inner { width: min(var(--container-md), 100%); }
+
+.payment-page-card {
+  background: var(--theme-surface);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.payment-page-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--gradient-spectrum);
+}
+
+.payment-page-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.payment-page-heading {
+  font-size: var(--theme-font-size-xl);
+  font-weight: var(--font-weight-black);
+  text-transform: uppercase;
+  letter-spacing: var(--heading-tracking);
+  color: var(--theme-text);
+  margin: 0;
+}
+
+.payment-page-link { align-self: center; }
+
+/* The shared awaiting-payment card is light-surface here, not glass. */
+.wertkurs-theme-wrapper .awaiting-payment-card {
+  background: var(--theme-surface);
+  border: var(--border-width-thin) solid var(--theme-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  color: var(--theme-text);
+}
+
+.wertkurs-theme-wrapper .awaiting-payment-icon { color: var(--theme-on-mint); }
+
+.wertkurs-theme-wrapper .awaiting-payment-heading {
+  color: var(--theme-text);
+  text-transform: uppercase;
+  letter-spacing: var(--heading-tracking);
+}
+
+.wertkurs-theme-wrapper .awaiting-payment-message { color: var(--theme-text-secondary); }
+.wertkurs-theme-wrapper .awaiting-payment-fallback { color: var(--theme-text-muted); }
+.wertkurs-theme-wrapper .awaiting-payment-fallback a { color: var(--theme-text); }

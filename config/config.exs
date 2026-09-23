@@ -302,6 +302,13 @@ config :tailwind,
       --output=../priv/static/assets/scheduling-theme-rhythm.css
     ),
     cd: Path.expand("../assets", __DIR__)
+  ],
+  wertkurs: [
+    args: ~w(
+      --input=css/scheduling/themes/wertkurs/theme.css
+      --output=../priv/static/assets/scheduling-theme-wertkurs.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
   ]
 
 # Use Jason for JSON parsing in Phoenix

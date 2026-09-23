@@ -1,0 +1,13 @@
+/* Cancel / reschedule pages reuse the ticket shell; the shared
+   meeting_detail_rows component supplies the rows. */
+
+.meeting-detail-rows { display: grid; gap: var(--space-xs); padding: var(--space-md); }
+
+.meeting-detail-row--organizer .meeting-detail-info { gap: 2px; }
+
+.meeting-detail-icon { width: var(--icon-sm); height: var(--icon-sm); }
+
+@container scheduling (min-width: 520px) {
+  .meeting-detail-rows { grid-template-columns: 1fr 1fr; }
+  .meeting-detail-row--organizer { grid-column: 1 / -1; }
+}
