@@ -223,3 +223,31 @@
   --wk-texture-grain: url("/images/themes/wertkurs/grain.png");
   --wk-werner-shrug: url("/images/themes/wertkurs/werner-shrug.png");
 }
+
+/* ---------- Brand lock ----------
+   The dashboard's colour setting injects `:root { --theme-* }` from the
+   organiser's colour scheme. Every built-in scheme (and every seed-derived
+   palette) is a dark glass palette made for Quill/Rhythm: dark background,
+   translucent dark surface, light text. On this theme that turns the white
+   card into a dark see-through panel with white type.
+
+   The 13 tokens below are exactly the set a palette emits
+   (Presets / PaletteDerivation + ContrastTokens). Re-declaring them on
+   html.wertkurs-theme (specificity 0,1,1) outranks the injected :root (0,1,0)
+   regardless of source order, so the brand colours always win. Consequence:
+   the dashboard colour setting has no effect on this theme — by design. */
+html.wertkurs-theme {
+  --theme-background: var(--wk-paper);
+  --theme-surface: var(--wk-white);
+  --theme-text: var(--wk-ink-soft);
+  --theme-text-secondary: var(--wk-grey-dark);
+  --theme-primary: var(--wk-mint);
+  --theme-primary-hover: #7ccfa6;
+  --theme-primary-solid: var(--wk-mint);
+  --theme-primary-solid-hover: #7ccfa6;
+  --theme-on-primary: var(--wk-forest);
+  --theme-secondary: var(--wk-ming);
+  --theme-accent: var(--wk-mint);
+  --theme-accent-solid: var(--wk-mint);
+  --theme-on-accent: var(--wk-forest);
+}
