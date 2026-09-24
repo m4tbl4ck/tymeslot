@@ -1,8 +1,10 @@
 defmodule TymeslotWeb.Themes.Wertkurs.Scheduling.Wrapper do
   @moduledoc """
   Visual shell for the wertkurs theme: the brand canvas (light field + grain +
-  a single mint horizon), the organiser's custom colour overrides, the language
-  switcher, and the branding footer.
+  a single mint horizon), the organiser's custom colour overrides, and the
+  branding footer. There is deliberately no language switcher — the page
+  language is resolved by `LocalePlug` (`?locale=`, `Accept-Language`, then the
+  instance booking default).
 
   The theme declares no video/image/gradient background capability, so the
   canvas is fixed — the only customisation that reaches here is the colour
@@ -10,9 +12,6 @@ defmodule TymeslotWeb.Themes.Wertkurs.Scheduling.Wrapper do
   """
   use Phoenix.Component
 
-  alias Tymeslot.Locales
-
-  import TymeslotWeb.Components.LanguageSwitcher
   import TymeslotWeb.Themes.Shared.Customization.Helpers
 
   attr :theme_customization, :map, default: nil
@@ -45,21 +44,9 @@ defmodule TymeslotWeb.Themes.Wertkurs.Scheduling.Wrapper do
 
       <div class="wertkurs-stage">
         <div class="content-area">
-          <%= if assigns[:locale] && assigns[:language_dropdown_open] != nil do %>
-            <div class={[
-              "language-switcher-container",
-              @show_language_switcher && "visible",
-              !@show_language_switcher && "hidden"
-            ]}>
-              <.language_switcher
-                locale={@locale}
-                locales={Locales.supported()}
-                dropdown_open={@language_dropdown_open}
-                theme="wertkurs"
-              />
-            </div>
-          <% end %>
-
+          <%!-- No language switcher: every visitor is German-speaking. The
+          page language comes from ?locale=de (the embed passes it), the
+          browser's Accept-Language, or the instance booking default. --%>
           {render_slot(@inner_block)}
         </div>
 
