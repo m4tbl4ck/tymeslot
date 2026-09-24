@@ -15,7 +15,6 @@ defmodule TymeslotWeb.Themes.Wertkurs.Scheduling.Components.ScheduleComponent do
   use TymeslotWeb, :live_component
   use Gettext, backend: TymeslotWeb.Gettext
 
-  alias Tymeslot.Timezones
   alias TymeslotWeb.Components.MeetingUtils
   alias TymeslotWeb.Live.Scheduling.CalendarHelpers
   alias TymeslotWeb.Live.Scheduling.CalendarNavigation
@@ -119,90 +118,10 @@ defmodule TymeslotWeb.Themes.Wertkurs.Scheduling.Components.ScheduleComponent do
                 meeting_type={@meeting_type}
                 selected_duration={@selected_duration}
               />
-              <div class="timezone-selector-container">
-                <%!-- Visual label only: it names no control (the trigger carries its
-                      own accessible name), so it must not be a <label> element. --%>
-                <div class="timezone-label">{dgettext("booking", "Your timezone")}</div>
-                <div class="timezone-dropdown-wrapper">
-                  <.dropdown
-                    id="wertkurs-timezone-dropdown"
-                    open={@timezone_dropdown_open}
-                    on_toggle="toggle_timezone_dropdown"
-                    on_close="close_timezone_dropdown"
-                    target={@myself}
-                    role="dialog"
-                    panel_label={dgettext("booking", "Select timezone")}
-                    trigger_class="timezone-trigger"
-                    class="timezone-dropdown"
-                    unstyled={true}
-                  >
-                    <:trigger>
-                      <span class="sr-only">{dgettext("booking", "Your timezone")}:</span>
-                      <div class="timezone-display">
-                        <%= if country_code = Timezones.country_code(@user_timezone || "Europe/Berlin") do %>
-                          <%= if Timezones.flag_exists?(country_code) do %>
-                            <Flagpack.flag name={country_code} class="timezone-flag" />
-                          <% end %>
-                        <% end %>
-                        <span class="timezone-text">
-                          {Timezones.format(@user_timezone || "Europe/Berlin")}
-                        </span>
-                      </div>
-                      <div class="timezone-arrow" aria-hidden="true">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 9l6 6 6-6"
-                          />
-                        </svg>
-                      </div>
-                    </:trigger>
-                    <:panel>
-                      <div class="timezone-search-wrapper">
-                        <input
-                          id="timezone-search-input"
-                          type="text"
-                          name="search"
-                          class="timezone-search"
-                          value={@timezone_search}
-                          placeholder={
-                            dgettext("booking", "Search cities, countries, or timezones...")
-                          }
-                          aria-label={dgettext("booking", "Search timezones")}
-                          phx-keyup="search_timezone"
-                          phx-target={@myself}
-                          phx-hook="AutoFocus"
-                        />
-                      </div>
-                      <div class="timezone-options scroll-y">
-                        <%= for {label, value, offset} <- Timezones.search(@timezone_search) do %>
-                          <button
-                            type="button"
-                            class="timezone-option"
-                            phx-click="change_timezone"
-                            phx-value-timezone={value}
-                            phx-target={@myself}
-                          >
-                            <div class="timezone-option-content">
-                              <%= if country_code = Timezones.country_code(value) do %>
-                                <%= if Timezones.flag_exists?(country_code) do %>
-                                  <Flagpack.flag name={country_code} class="timezone-option-flag" />
-                                <% end %>
-                              <% end %>
-                              <div class="timezone-option-text">
-                                <div class="timezone-option-label">{label}</div>
-                                <div class="timezone-option-offset">{offset}</div>
-                              </div>
-                            </div>
-                          </button>
-                        <% end %>
-                      </div>
-                    </:panel>
-                  </.dropdown>
-                </div>
-              </div>
+              <%!-- No timezone picker: the audience is in one timezone. Slots are
+                    still rendered in the visitor's browser timezone (LiveSocket
+                    connect param, see ThemeUtils.assign_user_timezone/2); only
+                    the manual override is gone. --%>
             </div>
 
             <div class="schedule-grid">
