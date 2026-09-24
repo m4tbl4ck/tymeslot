@@ -52,9 +52,12 @@
 
   /* ---------- Accent + filled controls ----------
      Mint is the brand's primary accent AND the CTA fill: filled buttons take
-     the mint field, which reads as the invitation to click. Mint cannot carry
-     white label text (1.9:1), so the ink on mint is always forest green
-     #1d402f (7.4:1) — the same pairing the brand uses for its mint button.
+     the mint field, which reads as the invitation to click. The label on a
+     mint button is WHITE, matching the website's `.button.is-mint`
+     (cms.mattschwarz.io: background #8fd9b6, color #fff). Contrast is only
+     ~1.6:1 — a deliberate brand decision by the owner, accepted knowingly.
+     Other mint surfaces (step dot, badges, selected tiles) keep forest ink
+     via --theme-on-selected / --theme-on-mint.
      Because mint now belongs to the *action*, a committed choice inside a
      step (selected day, selected slot) takes the deep-black "picked" pair
      instead, so the CTA stays the only mint surface in view.
@@ -64,7 +67,7 @@
   --theme-primary-hover: #7ccfa6;
   --theme-primary-solid: var(--wk-mint);
   --theme-primary-solid-hover: #7ccfa6;
-  --theme-on-primary: var(--wk-forest);
+  --theme-on-primary: var(--wk-white);
 
   /* Committed choice inside a step — deep black, white ink (17:1) */
   --theme-picked-bg: var(--wk-ink);
@@ -245,7 +248,7 @@ html.wertkurs-theme {
   --theme-primary-hover: #7ccfa6;
   --theme-primary-solid: var(--wk-mint);
   --theme-primary-solid-hover: #7ccfa6;
-  --theme-on-primary: var(--wk-forest);
+  --theme-on-primary: var(--wk-white);
   --theme-secondary: var(--wk-ming);
   --theme-accent: var(--wk-mint);
   --theme-accent-solid: var(--wk-mint);
